@@ -1,22 +1,20 @@
-// scripts.js
-
 document.addEventListener('DOMContentLoaded', function() {
     const loadingScreen = document.getElementById('loading-screen');
     const mainContent = document.getElementById('main-content');
     const enterButton = document.getElementById('enter-button');
     const mainContainer = document.getElementById('main-container');
     
-    // Simulate loading time
+    
     setTimeout(() => {
         loadingScreen.style.display = 'none';
         mainContent.style.display = 'block';
-    }, 3000); // Adjust the time as needed
+    }, 3000); 
     
     enterButton.addEventListener('click', () => {
         document.body.classList.add('loaded');
     });
 
-    // Battery status
+    
     const batteryIcon = document.getElementById('battery-icon');
     const batteryLevel = document.getElementById('battery-level');
 
