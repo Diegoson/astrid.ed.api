@@ -1,16 +1,15 @@
+
 window.onload = function() {
   const loadingScreen = document.getElementById('loading-screen');
   const mainContent = document.getElementById('main-content');
 
   loadingScreen.style.display = 'none';
-  mainContent.style.display = 'block';
 
   const enterButton = document.getElementById('enter-button');
   const mainContainer = document.getElementById('main-container');
 
   enterButton.addEventListener('click', () => {
     loadingScreen.style.display = 'none';
-    mainContent.style.display = 'block';
     document.body.classList.add('loaded');
   });
 
@@ -43,4 +42,9 @@ window.onload = function() {
       updateBatteryStatus(battery);
     });
   });
-}
+
+  setTimeout(() => {
+    mainContent.style.display = 'block';
+  }, 1000);
+        }
+                             
