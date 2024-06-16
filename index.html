@@ -1,4 +1,4 @@
-     <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,21 +25,21 @@
                 <i class="fab fa-facebook fa-3x"></i>
             </div>
             <div class="info">
-                <h2>Facebook API</h2>
-                <p>Access and dl Facebook videos.</p>
+                <h2>FACEBOOK API</h2>
+                <p>Access and download Facebook videos.</p>
                 <button class="endpoint-button">View Endpoint</button>
             </div>
         </section>
-         <section class="endpoint">
-              <div class="icon">
-                   <i class="fas fas-youtube fa-3x"></i>
-              </div>
-              <div class="info">
-                   <h2>YT-SEARCH</h2>
-                   <p>Search various info on YouTube Yt-search</p>
-                   <button class="endpoint-button">View Endpoint</button>
-              </div>
-         </section>
+        <section class="endpoint">
+            <div class="icon">
+                <i class="fas fa-youtube fa-3x"></i>
+            </div>
+            <div class="info">
+                <h2>YT-SEARCH</h2>
+                <p>Search various info on YouTube Yt-search</p>
+                <button class="endpoint-button" onclick="openEndpoint('https://novaapi.onrender.com/search/yt?q=Goku')">View Endpoint</button>
+            </div>
+        </section>
         <section class="endpoint">
             <div class="icon">
                 <i class="fas fa-brain fa-3x"></i>
@@ -47,6 +47,86 @@
             <div class="info">
                 <h2>GPT API</h2>
                 <p>Generate text using GPT model gpt-4o.</p>
+                <button class="endpoint-button">View Endpoint</button>
+            </div>
+        </section>
+        <section class="endpoint">
+            <div class="icon">
+                <i class="fas fa-music fa-3x"></i>
+            </div>
+            <div class="info">
+                <h2>SPOTIFY</h2>
+                <p>Download from the Spotify.</p>
+                <button class="endpoint-button">View Endpoint</button>
+            </div>
+        </section>
+        <section class="endpoint">
+            <div class="icon">
+                <i class="fas fa-film fa-3x"></i>
+            </div>
+            <div class="info">
+                <h2>ANINE API</h2>
+                <p>Search and get information on Anime.</p>
+                <button class="endpoint-button">View Endpoint</button>
+            </div>
+        </section>
+        <section class="endpoint">
+            <div class="icon">
+                <i class="fab fa-tiktok fa-3x"></i>
+            </div>
+            <div class="info">
+                <h2>TIKTOK-DL</h2>
+                <p>Download videos from TikTok.</p>
+                <button class="endpoint-button">View Endpoint</button>
+            </div>
+        </section>
+        <section class="endpoint">
+            <div class="icon">
+                <i class="fab fa-instagram fa-3x"></i>
+            </div>
+            <div class="info">
+                <h2>INSTAGRAM</h2>
+                <p>Download videos from Instagram.</p>
+                <button class="endpoint-button">View Endpoint</button>
+            </div>
+        </section>
+        <section class="endpoint">
+            <div class="icon">
+                <i class="fas fa-cloud-download-alt fa-3x"></i>
+            </div>
+            <div class="info">
+                <h2>MediaFire</h2>
+                <p>Manage and access files on MediaFire.</p>
+                <button class="endpoint-button">View Endpoint</button>
+            </div>
+        </section>
+        <section class="endpoint">
+            <div class="icon">
+                <i class="fas fa-search fa-3x"></i>
+            </div>
+            <div class="info">
+                <h2>GOOGLE</h2>
+                <p>Search infos using Google.</p>
+                <button class="endpoint-button">View Endpoint</button>
+            </div>
+        </section>
+        <section class="endpoint">
+            <div class="icon">
+                <i class="fas fa-search fa-3x"></i>
+            </div>
+            <div class="info">
+                <h2>DUCK SEARCH</h2>
+                <p>Search infos using DuckDuckGo</p>
+                <button class="endpoint-button">View Endpoint</button>
+            </div>
+        </section>
+        <section class="endpoint">
+            <div class="icon">
+                <i class="fab fa-github fa-3x"></i>
+            </div>
+            <div class="info">
+                <h2>GITHUB API</h2>
+                <p>Access and manage info on GitHub repos.</p>
                 <button class="endpoint-button">View Endpoint</button>
             </div>
         </section>
@@ -75,7 +155,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
                 document.body.classList.add('loaded');
-            }, 3000);
+            }, 3000); 
         });
 
         function scrollToTop() {
@@ -86,6 +166,11 @@
             const container = document.getElementById('main-container');
             container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
         }
+
+        function openEndpoint(url) {
+            window.open(url, '_blank');
+        }
     </script>
 </body>
-</html>
+     </html>
+                     
