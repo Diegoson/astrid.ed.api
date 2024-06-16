@@ -13,16 +13,9 @@
             <div class="loader"></div>
             <h1>Welcome to Our Site</h1>
         </div>
-        <div class="main-content" id="main-content">
-            <button class="enter-button" id="enter-button">Enter</button>
-            <div class="battery-status">
-                <i class="fas fa-battery-full" id="battery-icon"></i>
-                <span id="battery-level">100% charging</span>
-            </div>
-        </div>
     </div>
     
-    <div class="container" id="main-container">
+    <div class="container" id="main-container" style="display: none;">
         <header>
             <h1>API Endpoints</h1>
             <div class="corner-fold"><span>Astrid.ED</span></div>
@@ -64,6 +57,13 @@
         </div>
     </div>
 
-    <script src="scripts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.getElementById('welcome-container').style.display = 'none';
+                document.getElementById('main-container').style.display = 'block';
+            }, 3000); // Change 3000 to the number of milliseconds you want the welcome screen to be displayed
+        });
+    </script>
 </body>
 </html>
