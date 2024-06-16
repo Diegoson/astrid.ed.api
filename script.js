@@ -1,20 +1,18 @@
-
-window.onload = function() {
+document.addEventListener('DOMContentLoaded', function(){
   const loadingScreen = document.getElementById('loading-screen');
   const mainContent = document.getElementById('main-content');
-
-  loadingScreen.style.display = 'none';
-
   const enterButton = document.getElementById('enter-button');
   const mainContainer = document.getElementById('main-container');
+  const batteryIcon = document.getElementById('battery-icon');
+  const batteryLevel = document.getElementById('battery-level');
+
+  loadingScreen.style.display = 'none';
+  mainContent.style.display = 'none';
 
   enterButton.addEventListener('click', () => {
     loadingScreen.style.display = 'none';
     document.body.classList.add('loaded');
   });
-
-  const batteryIcon = document.getElementById('battery-icon');
-  const batteryLevel = document.getElementById('battery-level');
 
   function updateBatteryStatus(battery) {
     const level = Math.floor(battery.level * 100);
@@ -44,7 +42,8 @@ window.onload = function() {
   });
 
   setTimeout(() => {
+    loadingScreen.style.display = 'none';
     mainContent.style.display = 'block';
-  }, 1000);
-        }
-                             
+    window.location.href = 'index.html';
+  }, 3000); 
+});
