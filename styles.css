@@ -19,7 +19,7 @@ body, html {
     align-items: center;
     justify-content: center;
     background-color: #007BFF;
-    transition: transform 1s ease;
+    transition: transform 1s ease, opacity 1s ease;
 }
 
 .loading-screen {
@@ -42,44 +42,6 @@ body, html {
     100% { transform: rotate(360deg); }
 }
 
-.main-content {
-    display: none;
-    text-align: center;
-    color: white;
-}
-
-.enter-button {
-    padding: 15px 30px;
-    background: linear-gradient(135deg, #007BFF, #00C6FF);
-    color: #fff;
-    font-size: 1.5em;
-    font-weight: bold;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
-    margin: 20px 0;
-}
-
-.enter-button:hover {
-    background: linear-gradient(135deg, #0056b3, #0099cc);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
-}
-
-.battery-status {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2em;
-    margin-top: 20px;
-}
-
-.battery-status i {
-    margin-right: 10px;
-}
-
 .container {
     display: none;
     opacity: 0;
@@ -89,16 +51,13 @@ body, html {
 
 body.loaded .welcome-container {
     transform: translateX(-100%);
+    opacity: 0;
 }
 
 body.loaded .container {
     display: block;
     opacity: 1;
     transform: translateX(0);
-}
-
-body.loaded .main-content {
-    display: none;
 }
 
 /* Existing styles for API Endpoints */
@@ -290,4 +249,5 @@ header h1 {
         align-items: center;
         justify-content: center;
     }
-}
+    }
+    
