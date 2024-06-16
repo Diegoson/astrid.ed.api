@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+     <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -55,17 +55,27 @@
                 <p>Copyright by Diegoson</p>
             </div>
         </div>
+        <div class="scroll-buttons">
+            <button onclick="scrollToTop()">Top</button>
+            <button onclick="scrollToBottom()">Bottom</button>
+        </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
                 document.body.classList.add('loaded');
-            }, 3000); // Change 3000 to the number of milliseconds you want the welcome screen to be displayed
+            }, 3000);
         });
+
+        function scrollToTop() {
+            document.getElementById('main-container').scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollToBottom() {
+            const container = document.getElementById('main-container');
+            container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
+        }
     </script>
 </body>
-        </html>
-
-
-                                                                 
+</html>
