@@ -1,7 +1,10 @@
-
-document.addEventListener('DOMContentLoaded', function() {
+window.onload = function() {
   const loadingScreen = document.getElementById('loading-screen');
   const mainContent = document.getElementById('main-content');
+
+  loadingScreen.style.display = 'none';
+  mainContent.style.display = 'block';
+
   const enterButton = document.getElementById('enter-button');
   const mainContainer = document.getElementById('main-container');
 
@@ -40,4 +43,4 @@ document.addEventListener('DOMContentLoaded', function() {
       updateBatteryStatus(battery);
     });
   });
-});
+}
