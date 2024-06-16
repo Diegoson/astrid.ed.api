@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading Page</title>
+  <style>
+    body {
+      background-color: #f2f2f2;
+    }
+    .loading-screen {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-screen">
+    <div class="loader"></div>
+    <h1>Loading...</h1>
+  </div>
+  <script>
+    setTimeout(() => {
+      window.location.href = 'welcome.html'; 
+    }, 2000); 
+  </script>
+</body>
+</html>
