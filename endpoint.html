@@ -71,9 +71,9 @@
         .link {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
+            justify-content: space-between; /* Center-align items with space in between */
             margin-top: 20px;
+            padding-right: 10px; /* Add padding to create space on the right side */
         }
         .link span {
             font-size: 1em;
@@ -152,37 +152,41 @@
             apiLink.textContent = apiUrl;
 
             fetch(apiUrl)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     // Clear previous content
                     apiResults.innerHTML = '';
 
+                    // Check if data is an array
+                    if (!Array.isArray(data)) {
+                        throw new Error('API did not return an array');
+                    }
+
                     // Loop through each item in the JSON array
                     data.forEach(item => {
-                        // Create elements for title, source, and audio
-                        const titleElement = document.createElement('p');
-                        titleElement.textContent = `Title: ${item.title}`;
-
-                        const sourceElement = document.createElement('p');
-                        sourceElement.textContent = `Source: ${item.source}`;
-
-                        const audioElement = document.createElement('audio');
-                        audioElement.controls = true;
-                        audioElement.src = item.audio;
-
-                        // Create a div to wrap title, source, and audio elements
+                        // Create a div to hold each item's information
                         const itemContainer = document.createElement('div');
                         itemContainer.classList.add('item-container');
-                        itemContainer.appendChild(titleElement);
-                        itemContainer.appendChild(sourceElement);
-                        itemContainer.appendChild(audioElement);
+
+                        // Loop through each key in the item object
+                        Object.keys(item).forEach(key => {
+                            // Create paragraph element for each key-value pair
+                            const p = document.createElement('p');
+                            p.textContent = `${key}: ${item[key]}`;
+                            itemContainer.appendChild(p);
+                        });
 
                         // Append itemContainer to apiResults
                         apiResults.appendChild(itemContainer);
                     });
                 })
                 .catch(error => {
-                    apiResults.textContent = `Error fetching the API: ${error}`;
+                    apiResults.textContent = `Error fetching the API: ${error.message}`;
                 });
         });
 
