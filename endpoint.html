@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Endpoints</title>
+    <title>API Endpoint</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
@@ -88,18 +88,16 @@
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: background-color 0.3s ease;
             font-size: 1em;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .copy-button:hover {
             background-color: #563d7c;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
         }
         .copy-button:active {
-            transform: translateY(0);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -143,19 +141,18 @@
                     apiResults.textContent = JSON.stringify(data, null, 2);
                 })
                 .catch(error => {
-                    apiResults.textContent = `Error: ${error}`;
+                    apiResults.textContent = `Error fetching the API: ${error}`;
                 });
         });
 
         function copyToClipboard() {
             const apiLink = document.getElementById('api-link').textContent;
             navigator.clipboard.writeText(apiLink).then(() => {
-                alert('API endpoint copied to clipboard');
+                alert('API endpoint copied to clipboard!');
             }).catch(err => {
                 console.error('Failed to copy!', err);
             });
         }
     </script>
 </body>
-  </html>
-  
+</html>
