@@ -141,65 +141,65 @@
             </div>
         </div>
     </div>
+<script>
+    function openEndpoint(apiUrl) {
+        const apiLink = document.getElementById('api-link');
+        const apiResults = document.getElementById('api-results');
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const apiUrl = urlParams.get('url');
-            const apiLink = document.getElementById('api-link');
-            const apiResults = document.getElementById('api-results');
+        apiLink.textContent = apiUrl;
 
-            apiLink.textContent = apiUrl;
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Clear previous content
+                apiResults.innerHTML = '';
 
-            fetch(apiUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Clear previous content
-                    apiResults.innerHTML = '';
+                // Iterate through each item in the data array
+                data.forEach(item => {
+                    // Create a container for each item
+                    const itemContainer = document.createElement('div');
+                    itemContainer.classList.add('item-container');
 
-                    // Check if data is an array
-                    if (!Array.isArray(data)) {
-                        throw new Error('API did not return an array');
-                    }
+                    // Iterate through each key in the item object
+                    Object.keys(item).forEach(key => {
+                        // Skip keys that are not relevant for display (e.g., 'id', 'timestamp', etc.)
+                        if (key === 'id' || key === 'timestamp') {
+                            return;
+                        }
 
-                    // Loop through each item in the JSON array
-                    data.forEach(item => {
-                        // Create a div to hold each item's information
-                        const itemContainer = document.createElement('div');
-                        itemContainer.classList.add('item-container');
+                        // Create a paragraph element for the key-value pair
+                        const keyValueElement = document.createElement('p');
+                        keyValueElement.textContent = `${key}: ${item[key]}`;
 
-                        // Loop through each key in the item object
-                        Object.keys(item).forEach(key => {
-                            // Create paragraph element for each key-value pair
-                            const p = document.createElement('p');
-                            p.textContent = `${key}: ${item[key]}`;
-                            itemContainer.appendChild(p);
-                        });
-
-                        // Append itemContainer to apiResults
-                        apiResults.appendChild(itemContainer);
+                        // Append the element to the item container
+                        itemContainer.appendChild(keyValueElement);
                     });
-                })
-                .catch(error => {
-                    console.error('Error fetching the API:', error);
-                    apiResults.textContent = `Error fetching the API: ${error.message}`;
-                });
-        });
 
-        function copyToClipboard() {
-            const apiLink = document.getElementById('api-link').textContent;
-            navigator.clipboard.writeText(apiLink).then(() => {
-                alert('API endpoint copied to clipboard!');
-            }).catch(err => {
-                console.error('Failed to copy!', err);
+                    // Append item container to results section
+                    apiResults.appendChild(itemContainer);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching the API:', error);
+                apiResults.textContent = `Error fetching the API: ${error.message}`;
             });
-        }
-    </script>
+    }
+
+    function copyToClipboard() {
+        const apiLink = document.getElementById('api-link').textContent;
+        navigator.clipboard.writeText(apiLink).then(() => {
+            alert('API endpoint copied to clipboard!');
+        }).catch(err => {
+            console.error('Failed to copy!', err);
+        });
+    }
+</script>
+    
 </body>
     </html>
                     
