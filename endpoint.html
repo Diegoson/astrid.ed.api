@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Endpoints</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6D5BBA, #8D58BF, #DE68A3);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 90%;
+            padding: 20px;
+            margin: 20px;
+            text-align: center;
+        }
+        header {
+            margin-bottom: 20px;
+        }
+        header h1 {
+            font-size: 2em;
+            color: #6D5BBA;
+        }
+        .api-info {
+            border: 2px solid #6D5BBA;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #f3f2ff;
+        }
+        .api-info h3 {
+            margin-top: 0;
+            font-size: 1.8em;
+            color: #6D5BBA;
+        }
+        .format, .method, .link {
+            margin-bottom: 20px;
+        }
+        .format label {
+            font-size: 1.1em;
+            color: #333;
+        }
+        .method {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #6D5BBA;
+        }
+        .results {
+            background-color: #e3e1f9;
+            padding: 15px;
+            border-radius: 10px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace;
+            color: #333;
+            max-height: 200px;
+            overflow-y: auto;
+            text-align: left;
+        }
+        .link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .link span {
+            font-size: 1em;
+            font-weight: bold;
+            color: #6D5BBA;
+            user-select: text;
+        }
+        .copy-button {
+            background-color: #6D5BBA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 1em;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .copy-button:hover {
+            background-color: #563d7c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+        .copy-button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>API Endpoint</h1>
+        </header>
+
+        <div class="api-info" id="api-info">
+            <h3>API</h3>
+            <div class="format">
+                <input type="checkbox" id="json-format" checked disabled>
+                <label for="json-format">application/json</label>
+            </div>
+            <div class="method">
+                GET
+            </div>
+            <div class="results" id="api-results">
+                Fetching API data...
+            </div>
+            <div class="link">
+                <span id="api-link"></span>
+                <button class="copy-button" onclick="copyToClipboard()">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const apiUrl = urlParams.get('url');
+            const apiLink = document.getElementById('api-link');
+            const apiResults = document.getElementById('api-results');
+
+            apiLink.textContent = apiUrl;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    apiResults.textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    apiResults.textContent = `Error: ${error}`;
+                });
+        });
+
+        function copyToClipboard() {
+            const apiLink = document.getElementById('api-link').textContent;
+            navigator.clipboard.writeText(apiLink).then(() => {
+                alert('API endpoint copied to clipboard');
+            }).catch(err => {
+                console.error('Failed to copy!', err);
+            });
+        }
+    </script>
+</body>
+  </html>
+  
