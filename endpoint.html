@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Endpoint</title>
+    <title>API Endpoints</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
@@ -64,7 +64,7 @@
             white-space: pre-wrap;
             font-family: 'Courier New', Courier, monospace;
             color: #333;
-            max-height: 200px;
+            max-height: 400px;
             overflow-y: auto;
             text-align: left;
         }
@@ -79,7 +79,8 @@
             font-size: 1em;
             font-weight: bold;
             color: #6D5BBA;
-            user-select: text;
+            user-select: none; /* Prevent text selection */
+            visibility: hidden; /* Make the link invisible */
         }
         .copy-button {
             background-color: #6D5BBA;
@@ -88,16 +89,33 @@
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: transform 0.2s, box-shadow 0.2s;
             font-size: 1em;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+        .copy-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+        .copy-button:hover::after {
+            opacity: 0;
         }
         .copy-button:hover {
-            background-color: #563d7c;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
         }
         .copy-button:active {
-            transform: translateY(1px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transform: translateY(2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -138,21 +156,46 @@
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
-                    apiResults.textContent = JSON.stringify(data, null, 2);
+                    
+                    apiResults.innerHTML = '';
+
+                    
+                    data.forEach(item => {
+                        
+                        const titleElement = document.createElement('p');
+                        titleElement.textContent = `Title: ${item.title}`;
+
+                        const sourceElement = document.createElement('p');
+                        sourceElement.textContent = `Source: ${item.source}`;
+
+                        const audioElement = document.createElement('audio');
+                        audioElement.controls = true;
+                        audioElement.src = item.audio;
+
+                        const itemContainer = document.createElement('div');
+                        itemContainer.classList.add('item-container');
+                        itemContainer.appendChild(titleElement);
+                        itemContainer.appendChild(sourceElement);
+                        itemContainer.appendChild(audioElement);
+
+                
+                        apiResults.appendChild(itemContainer);
+                    });
                 })
                 .catch(error => {
-                    apiResults.textContent = `Error fetching the API: ${error}`;
+                    apiResults.textContent = `Error:${error}`;
                 });
         });
 
         function copyToClipboard() {
             const apiLink = document.getElementById('api-link').textContent;
             navigator.clipboard.writeText(apiLink).then(() => {
-                alert('API endpoint copied to clipboard!');
+                alert('API endpoint copied to clipboard');
             }).catch(err => {
-                console.error('Failed to copy!', err);
+                console.error(err);
             });
         }
     </script>
 </body>
-</html>
+    </html>
+    
