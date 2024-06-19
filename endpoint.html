@@ -126,14 +126,7 @@
         </header>
 
         <div class="api-info" id="api-info">
-            <h3>API</h3>
-            <div class="format">
-                <input type="checkbox" id="json-format" checked disabled>
-                <label for="json-format">application/json</label>
-            </div>
-            <div class="method">
-                GET
-            </div>
+            <h3>API Results</h3>
             <div class="results" id="api-results"></div>
             <div class="link">
                 <span id="api-link"></span>
@@ -141,65 +134,67 @@
             </div>
         </div>
     </div>
-<script>
-    function openEndpoint(apiUrl) {
-        const apiLink = document.getElementById('api-link');
-        const apiResults = document.getElementById('api-results');
 
-        apiLink.textContent = apiUrl;
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const apiUrl = urlParams.get('url');
+            const apiLink = document.getElementById('api-link');
+            const apiResults = document.getElementById('api-results');
 
-        fetch(apiUrl)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Clear previous content
-                apiResults.innerHTML = '';
+            apiLink.textContent = apiUrl;
 
-                // Iterate through each item in the data array
-                data.forEach(item => {
-                    // Create a container for each item
-                    const itemContainer = document.createElement('div');
-                    itemContainer.classList.add('item-container');
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Clear previous content
+                    apiResults.innerHTML = '';
 
-                    // Iterate through each key in the item object
-                    Object.keys(item).forEach(key => {
-                        // Skip keys that are not relevant for display (e.g., 'id', 'timestamp', etc.)
-                        if (key === 'id' || key === 'timestamp') {
-                            return;
-                        }
+                    // Iterate through each item in the data
+                    data.forEach(item => {
+                        // Create a container for each item
+                        const itemContainer = document.createElement('div');
+                        itemContainer.classList.add('item-container');
 
-                        // Create a paragraph element for the key-value pair
-                        const keyValueElement = document.createElement('p');
-                        keyValueElement.textContent = `${key}: ${item[key]}`;
+                        // Iterate through each key in the item object
+                        Object.keys(item).forEach(key => {
+                            // Skip keys that are not relevant for display (e.g., 'id', 'timestamp', etc.)
+                            if (key === 'id' || key === 'timestamp') {
+                                return;
+                            }
 
-                        // Append the element to the item container
-                        itemContainer.appendChild(keyValueElement);
+                            // Create a paragraph element for the key-value pair
+                            const keyValueElement = document.createElement('p');
+                            keyValueElement.textContent = `${key}: ${item[key]}`;
+
+                            // Append the element to the item container
+                            itemContainer.appendChild(keyValueElement);
+                        });
+
+                        // Append item container to results section
+                        apiResults.appendChild(itemContainer);
                     });
-
-                    // Append item container to results section
-                    apiResults.appendChild(itemContainer);
+                })
+                .catch(error => {
+                    console.error('Error fetching the API:', error);
+                    apiResults.textContent = `Error fetching the API: ${error.message}`;
                 });
-            })
-            .catch(error => {
-                console.error('Error fetching the API:', error);
-                apiResults.textContent = `Error fetching the API: ${error.message}`;
-            });
-    }
-
-    function copyToClipboard() {
-        const apiLink = document.getElementById('api-link').textContent;
-        navigator.clipboard.writeText(apiLink).then(() => {
-            alert('API endpoint copied to clipboard!');
-        }).catch(err => {
-            console.error('Failed to copy!', err);
         });
-    }
-</script>
-    
+
+        function copyToClipboard() {
+            const apiLink = document.getElementById('api-link').textContent;
+            navigator.clipboard.writeText(apiLink).then(() => {
+                alert('API endpoint copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy!', err);
+            });
+        }
+    </script>
 </body>
-    </html>
+                    </html>
                     
