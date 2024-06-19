@@ -6,6 +6,7 @@
     <title>API Endpoint</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
+        
         body {
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #6D5BBA, #8D58BF, #DE68A3);
@@ -116,7 +117,7 @@
         .copy-button:active {
             transform: translateY(2px);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+                }
     </style>
 </head>
 <body>
@@ -155,34 +156,43 @@
                     // Clear previous content
                     apiResults.innerHTML = '';
 
-                    // Iterate through each item in the data
-                    data.forEach(item => {
-                        // Create a container for each item
-                        const itemContainer = document.createElement('div');
-                        itemContainer.classList.add('item-container');
+                    // Process and display API data
+                    if (Array.isArray(data)) {
+                        data.forEach(item => {
+                            const itemContainer = document.createElement('div');
+                            itemContainer.classList.add('item-container');
 
-                        // Iterate through each key in the item object
-                        Object.keys(item).forEach(key => {
-                            // Skip keys that are not relevant for display (e.g., 'id', 'timestamp', etc.)
-                            if (key === 'id' || key === 'timestamp') {
-                                return;
-                            }
+                            // Display relevant information from API response
+                            // Customize this based on the structure of your API response
+                            const title = item.title || ''; // Example: Access title property
+                            const description = item.description || ''; // Example: Access description property
 
-                            // Create a paragraph element for the key-value pair
-                            const keyValueElement = document.createElement('p');
-                            keyValueElement.textContent = `${key}: ${item[key]}`;
+                            // Create HTML elements to display API data
+                            const titleElement = document.createElement('h4');
+                            titleElement.textContent = title;
 
-                            // Append the element to the item container
-                            itemContainer.appendChild(keyValueElement);
+                            const descriptionElement = document.createElement('p');
+                            descriptionElement.textContent = description;
+
+                            // Append elements to item container
+                            itemContainer.appendChild(titleElement);
+                            itemContainer.appendChild(descriptionElement);
+
+                            // Append item container to results section
+                            apiResults.appendChild(itemContainer);
                         });
+                    } else {
+                        const errorMessage = document.createElement('p');
+                        errorMessage.textContent = 'API data format not recognized.';
 
-                        // Append item container to results section
-                        apiResults.appendChild(itemContainer);
-                    });
+                        apiResults.appendChild(errorMessage);
+                    }
                 })
                 .catch(error => {
                     console.error('Error fetching the API:', error);
-                    apiResults.textContent = `Error fetching the API: ${error.message}`;
+                    const errorElement = document.createElement('p');
+                    errorElement.textContent = `Error fetching the API: ${error.message}`;
+                    apiResults.appendChild(errorElement);
                 });
         });
 
@@ -196,5 +206,4 @@
         }
     </script>
 </body>
-                    </html>
-                    
+</html>
