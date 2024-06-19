@@ -153,32 +153,26 @@
                     return response.json();
                 })
                 .then(data => {
-                    // Clear previous content
+                    
                     apiResults.innerHTML = '';
 
-                    // Process and display API data
-                    if (Array.isArray(data)) {
+                  if (Array.isArray(data)) {
                         data.forEach(item => {
                             const itemContainer = document.createElement('div');
                             itemContainer.classList.add('item-container');
 
-                            // Display relevant information from API response
-                            // Customize this based on the structure of your API response
-                            const title = item.title || ''; // Example: Access title property
-                            const description = item.description || ''; // Example: Access description property
+                             const title = item.title || ''; 
+                            const description = item.description || ''; 
 
-                            // Create HTML elements to display API data
                             const titleElement = document.createElement('h4');
                             titleElement.textContent = title;
 
                             const descriptionElement = document.createElement('p');
                             descriptionElement.textContent = description;
 
-                            // Append elements to item container
                             itemContainer.appendChild(titleElement);
                             itemContainer.appendChild(descriptionElement);
 
-                            // Append item container to results section
                             apiResults.appendChild(itemContainer);
                         });
                     } else {
@@ -189,9 +183,9 @@
                     }
                 })
                 .catch(error => {
-                    console.error('Error fetching the API:', error);
+                    console.error(error);
                     const errorElement = document.createElement('p');
-                    errorElement.textContent = `Error fetching the API: ${error.message}`;
+                    errorElement.textContent = `Error: ${error.message}`;
                     apiResults.appendChild(errorElement);
                 });
         });
@@ -199,9 +193,9 @@
         function copyToClipboard() {
             const apiLink = document.getElementById('api-link').textContent;
             navigator.clipboard.writeText(apiLink).then(() => {
-                alert('API endpoint copied to clipboard!');
+                alert('API endpoint copied to clipboard');
             }).catch(err => {
-                console.error('Failed to copy!', err);
+                console.error(err);
             });
         }
     </script>
